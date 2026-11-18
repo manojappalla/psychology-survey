@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Psychology Research Questionnaire</title>
+  <link rel="icon" href="media/emblem.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f4ef;
+      --card: #ffffff;
+      --surface: #f3f7f6;
+      --surface-warm: #fbf5ee;
+      --ink: #1e292b;
+      --muted: #59696d;
+      --brand: #1f4e5f;
+      --brand-dark: #143642;
+      --brand-tint: #e7f1f3;
+      --teal: #2e7d6b;
+      --accent: #d97742;
+      --line: #dce4e5;
+      --ok: #1b7340;
+      --danger: #c5221f;
+      --danger-bg: #fce8e6;
+      --shadow: 0 12px 32px rgba(20, 54, 66, 0.08), 0 2px 6px rgba(20, 54, 66, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 10% 8%, #e4efec 0 150px, transparent 151px),
+        radial-gradient(circle at 92% 94%, #f3e6d8 0 180px, transparent 181px);
+      color: var(--ink);
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+      font-size: 16.5px;
+      line-height: 1.55;
+      accent-color: var(--brand);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 16px 32px;
+    }
+
+    /* Visually hidden utility (accessible to screen readers, visible on focus for skip link) */
+    .visually-hidden:where(:not(:focus-within, :active)) {
+      position: absolute !important;
+      clip-path: inset(50%) !important;
+      overflow: hidden !important;
+      width: 1px !important;
+      height: 1px !important;
+      margin: -1px !important;
+      padding: 0 !important;
+      border: 0 !important;
+      white-space: nowrap !important;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 100;
+      background: var(--brand);
+      color: #ffffff;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--brand);
+      outline-offset: 2px;
+    }
+
+    /* Preview / Setup banner */
+    .banner {
+      width: 100%;
+      max-width: 640px;
+      background: var(--surface-warm);
+      border: 1.5px solid #ecd4b8;
+      color: #6e3d16;
+      border-radius: 14px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .banner[hidden] {
+      display: none;
+    }
+
+    .banner-btn {
+      appearance: none;
+      border: 1.5px solid #cfa57a;
+      background: #ffffff;
+      color: #6e3d16;
+      border-radius: 8px;
+      padding: 5px 10px;
+      font: 600 13px "Plus Jakarta Sans", sans-serif;
+      cursor: pointer;
+    }
+
+    /* Header & Progress */
+    header {
+      width: 100%;
+      max-width: 640px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 4px 0 14px;
+    }
+
+    .brand {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 700;
+      color: var(--brand);
+      font-size: 21px;
+      letter-spacing: -0.2px;
+    }
+
+    .brand span {
+      color: var(--accent);
+    }
+
+    .progress-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dots {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--line);
+      transition: background-color 0.2s ease;
+    }
+
+    .dot.done {
+      background: var(--teal);
+    }
+
+    .dot.now {
+      background: var(--brand);
+      width: 20px;
+      border-radius: 999px;
+    }
+
+    /* Main Card */
+    main {
+      width: 100%;
+      max-width: 640px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide {
+      width: 100%;
+      background: var(--card);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(31, 78, 95, 0.08);
+      padding: 30px 26px 26px;
+      display: flex;
+      flex-direction: column;
+      @media (prefers-reduced-motion: no-preference) {
+        animation: card-fade 0.28s ease-out;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .slide {
+        padding: 22px 18px 22px;
+        border-radius: 20px;
+      }
+    }
+
+    @keyframes card-fade {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Directional View Transitions */
+    @keyframes slide-to-left {
+      to { transform: translateX(-40px); opacity: 0; }
+    }
+    @keyframes slide-from-right {
+      from { transform: translateX(40px); opacity: 0; }
+    }
+    @keyframes slide-to-right {
+      to { transform: translateX(40px); opacity: 0; }
+    }
+    @keyframes slide-from-left {
+      from { transform: translateX(-40px); opacity: 0; }
+    }
+
+    ::view-transition-group(root) {
+      animation: 0.32s ease-in-out both;
+    }
+
+    html:active-view-transition-type(forward)::view-transition-old(root) {
+      animation-name: slide-to-left;
+    }
+    html:active-view-transition-type(forward)::view-transition-new(root) {
+      animation-name: slide-from-right;
+    }
+    html:active-view-transition-type(backward)::view-transition-old(root) {
+      animation-name: slide-to-right;
+    }
+    html:active-view-transition-type(backward)::view-transition-new(root) {
+      animation-name: slide-from-left;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      ::view-transition-group(root) {
+        animation: none !important;
+      }
+    }
+
+    /* Typography */
+    .kicker {
+      font-weight: 700;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 1.1px;
+      font-size: 12.5px;
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      font-family: "Fraunces", Georgia, serif;
+      color: var(--brand);
+      font-size: clamp(24px, 4.5vw, 30px);
+      line-height: 1.2;
+      margin: 0 0 12px;
+    }
+
+    h1:focus {
+      outline: none;
+    }
+
+    h2 {
+      font-family: "Fraunces", Georgia, serif;
+      color: var(--brand);
+      font-size: 19px;
+      line-height: 1.3;
+      margin: 0 0 8px;
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .hero {
+      display: block;
+      width: min(210px, 60%);
+      height: auto;
+      margin: 0 auto 14px;
+    }
+
+    .rule {
+      width: 48px;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--accent);
+      margin: 18px auto;
+    }
+
+    /* Consent List & Checkbox */
+    ul.consent-list {
+      padding-left: 20px;
+      margin: 6px 0 18px;
+    }
+
+    ul.consent-list li {
+      margin-bottom: 10px;
+    }
+
+    label.consent-check {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: var(--surface);
+      border: 1.5px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-weight: 600;
+      font-size: 15.5px;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+
+    label.consent-check:has(input:checked) {
+      border-color: var(--brand);
+      background: var(--brand-tint);
+    }
+
+    label.consent-check input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      flex: none;
+      margin-top: 2px;
+    }
+
+    /* Question Fieldsets & Likert / Choice Options */
+    .questions-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      margin-top: 10px;
+    }
+
+    fieldset.q-card {
+      margin: 0;
+      padding: 18px;
+      border: 1.5px solid var(--line);
+      border-radius: 16px;
+      background: #fcfdfd;
+      min-width: 0;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+
+    fieldset.q-card.answered {
+      border-color: #b9d4d9;
+      background: #ffffff;
+    }
+
+    fieldset.q-card.unanswered-err {
+      border-color: var(--danger);
+      background: #fffafa;
+    }
+
+    fieldset.q-card legend {
+      padding: 0;
+      font-weight: 700;
+      font-size: 16.5px;
+      line-height: 1.45;
+      color: var(--ink);
+      margin-bottom: 14px;
+      float: left;
+      width: 100%;
+    }
+
+    .q-num {
+      color: var(--teal);
+      margin-right: 6px;
+    }
+
+    /* Likert horizontal grid on desktop, clean stacked pills on mobile */
+    .options-likert {
+      clear: both;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+      gap: 8px;
+    }
+
+    @media (max-width: 560px) {
+      .options-likert {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .options-stack {
+      clear: both;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    label.opt-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 13px;
+      min-height: 48px;
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      background: #ffffff;
+      cursor: pointer;
+      font-size: 14.5px;
+      font-weight: 500;
+      line-height: 1.35;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+
+    @media (min-width: 561px) {
+      .options-likert label.opt-pill {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding: 12px 8px;
+        gap: 7px;
+      }
+    }
+
+    label.opt-pill:hover {
+      border-color: #9ab8c1;
+      background: #f8fbfb;
+    }
+
+    label.opt-pill:has(input:checked) {
+      border-color: var(--brand);
+      background: var(--brand-tint);
+      font-weight: 700;
+      color: var(--brand-dark);
+    }
+
+    label.opt-pill input {
+      width: 19px;
+      height: 19px;
+      margin: 0;
+      flex: none;
+    }
+
+    .q-error {
+      clear: both;
+      display: none;
+      color: var(--danger);
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    fieldset.q-card.unanswered-err .q-error {
+      display: block;
+    }
+
+    /* Demographics Form & Validation After Interaction */
+    form.details-form {
+      display: grid;
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .field label {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--ink);
+    }
+
+    .opt-tag {
+      font-weight: 400;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      min-width: 0;
+      font: 16px "Plus Jakarta Sans", sans-serif;
+      padding: 12px 14px;
+      min-height: 48px;
+      border-radius: 12px;
+      border: 1.5px solid var(--line);
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--brand);
+    }
+
+    .error-msg {
+      display: none;
+      color: var(--danger);
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    /* Validation styles only after user interaction (with WeakMap fallback) */
+    .field :is(:user-invalid, .user-invalid-fallback) {
+      border-color: var(--danger);
+      background-color: var(--danger-bg);
+    }
+
+    .field :is(:user-invalid, .user-invalid-fallback) + .error-msg {
+      display: block;
+    }
+
+    .field :is(:user-valid, .user-valid-fallback) {
+      border-color: var(--teal);
+    }
+
+    /* Progressive enhancement fallback for browsers without accent-color */
+    @supports not (accent-color: var(--brand)) {
+      input[type="checkbox"],
+      input[type="radio"] {
+        position: absolute !important;
+        clip-path: inset(50%) !important;
+        overflow: hidden !important;
+        width: 1px !important;
+        height: 1px !important;
+        margin: -1px !important;
+        padding: 0 !important;
+        border: 0 !important;
+        white-space: nowrap !important;
+      }
+      input[type="checkbox"] + span::before,
+      input[type="radio"] + span::before {
+        content: "";
+        display: inline-block;
+        width: 1.1rem;
+        height: 1.1rem;
+        margin-right: 0.5rem;
+        vertical-align: text-bottom;
+        border: 2px solid #8aa0a6;
+        background: #ffffff;
+        box-sizing: border-box;
+      }
+      input[type="checkbox"] + span::before {
+        border-radius: 4px;
+      }
+      input[type="radio"] + span::before {
+        border-radius: 50%;
+      }
+      input[type="checkbox"]:checked + span::before,
+      input[type="radio"]:checked + span::before {
+        background-color: var(--brand);
+        border-color: var(--brand);
+      }
+      input[type="checkbox"]:focus-visible + span::before,
+      input[type="radio"]:focus-visible + span::before {
+        outline: 2px solid var(--brand);
+        outline-offset: 2px;
+      }
+    }
+
+    /* Buttons & Footer Navigation */
+    .spacer {
+      flex: 1;
+      min-height: 12px;
+    }
+
+    .nav-row {
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .nav-row.end {
+      justify-content: flex-end;
+    }
+
+    .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 14px;
+      padding: 13px 22px;
+      min-height: 48px;
+      font: 700 16px "Plus Jakarta Sans", sans-serif;
+      cursor: pointer;
+      background: var(--brand);
+      color: #ffffff;
+      box-shadow: 0 4px 0 var(--brand-dark);
+      transition: background-color 0.15s ease, opacity 0.2s ease;
+    }
+
+    .btn:hover:not([disabled]) {
+      background: #255c70;
+    }
+
+    .btn:active:not([disabled]) {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 var(--brand-dark);
+    }
+
+    .btn[disabled] {
+      opacity: 0.38;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .btn.ghost {
+      background: transparent;
+      color: var(--brand);
+      box-shadow: inset 0 0 0 2px var(--brand);
+    }
+
+    .btn.ghost:hover:not([disabled]) {
+      background: var(--brand-tint);
+    }
+
+    /* Status & Debrief Box */
+    .status {
+      font-weight: 700;
+      font-size: 15px;
+      text-align: center;
+      margin-top: 12px;
+      min-height: 22px;
+    }
+
+    .status.ok {
+      color: var(--ok);
+    }
+
+    .status.err {
+      color: var(--danger);
+    }
+
+    .debrief-box {
+      background: var(--surface);
+      border: 1.5px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      margin: 14px 0;
+      text-align: left;
+    }
+
+    .pid-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface-warm);
+      border: 1.5px solid #e6cdb2;
+      border-radius: 12px;
+      padding: 10px 16px;
+      margin-top: 6px;
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--brand-dark);
+    }
+
+    .copy-btn {
+      appearance: none;
+      border: 1.5px solid var(--brand);
+      background: #ffffff;
+      color: var(--brand);
+      border-radius: 8px;
+      padding: 5px 10px;
+      font: 600 13px "Plus Jakarta Sans", sans-serif;
+      cursor: pointer;
+    }
+
+    /* Native Modal Dialog */
+    dialog {
+      border: 0;
+      border-radius: 22px;
+      max-width: 440px;
+      width: calc(100% - 32px);
+      padding: 24px;
+      background: var(--card);
+      color: var(--ink);
+      box-shadow: var(--shadow);
+    }
+
+    dialog::backdrop {
+      background: rgba(20, 40, 48, 0.45);
+    }
+
+    dialog h2 {
+      margin-top: 0;
+    }
+
+    footer {
+      margin-top: 18px;
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <a href="#slide-heading" class="skip-link visually-hidden">Skip to main content</a>
+
+  <div class="banner" id="preview-banner" hidden>
+    <span><strong>Preview Mode:</strong> Paste your Google Apps Script URL in <code>config.js</code> when ready to save live responses.</span>
+    <button type="button" class="banner-btn" id="reset-preview-btn">Reset Preview</button>
+  </div>
+
+  <header>
+    <div class="brand" id="brand-logo"></div>
+    <div class="progress-wrap" id="progress-wrap" aria-hidden="true">
+      <div class="dots" id="dots"></div>
+    </div>
+  </header>
+
+  <main id="main"></main>
+
+  <footer id="foot"></footer>
+
+  <dialog id="app-dialog" closedby="any">
+    <form method="dialog">
+      <h2 id="dialog-title"></h2>
+      <p id="dialog-body"></p>
+      <div class="nav-row end" id="dialog-actions"></div>
+    </form>
+  </dialog>
+
+  <script src="config.js"></script>
+  <script>
+    (function () {
+      "use strict";
+
+      const C = window.STUDY_CONFIG;
+      const $ = (sel, root = document) => root.querySelector(sel);
+      const esc = (str) =>
+        String(str ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+
+      const main = $("#main");
+      const isPreview =
+        !C.appsScriptUrl || C.appsScriptUrl.startsWith("PASTE_");
+
+      // Brand header
+      const brandEl = $("#brand-logo");
+      brandEl.textContent = C.study.brandMain || "Psych";
+      const accentSpan = document.createElement("span");
+      accentSpan.textContent = C.study.brandAccent || "·Study";
+      brandEl.appendChild(accentSpan);
+
+      // Polite live region for accessible validation announcements
+      const announcer = document.createElement("div");
+      announcer.setAttribute("aria-live", "polite");
+      announcer.classList.add("visually-hidden");
+      document.body.appendChild(announcer);
+      let announceTimer;
+      let announcedField;
+
+      // Capture optional external participant ID (?pid=... e.g. Prolific / SONA)
+      const params = new URLSearchParams(window.location.search);
+      const externalPid = params.get("pid") || params.get("PROLIFIC_PID") || "";
+
+      // Storage & State
+      const STORAGE_KEY = "psych_study_state_v1";
+      function newParticipantId() {
+        const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+        let out = "";
+        for (let i = 0; i < 6; i++) {
+          out += chars[Math.floor(Math.random() * chars.length)];
+        }
+        return "P-" + out;
+      }
+
+      function defaultState() {
+        return {
+          rid: newParticipantId(),
+          externalPid: externalPid,
+          slide: 0,
+          startedAt: null,
+          startSent: false,
+          consented: false,
+          answers: {},
+          demographics: {},
+          finished: false
+        };
+      }
+
+      function loadState() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+          if (!saved || !saved.rid) return null;
+          if (externalPid && !saved.externalPid) saved.externalPid = externalPid;
+          return saved;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function saveState() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(S));
+        } catch (e) {}
+      }
+
+      let S = loadState() || defaultState();
+
+      // Build ordered slide list
+      const SLIDES = [
+        { type: "intro", title: "Welcome" },
+        { type: "consent", title: "Informed Consent" },
+        ...C.sections.map((sec, idx) => ({
+          type: "section",
+          index: idx,
+          title: sec.kicker || `Part ${idx + 1}`
+        })),
+        { type: "demographics", title: "About You" },
+        { type: "thanks", title: "Thank You" }
+      ];
+
+      if (S.finished) {
+        S.slide = SLIDES.length - 1;
+      } else if (S.slide >= SLIDES.length - 1) {
+        S.slide = 0;
+      }
+
+      // Footer
+      function updateFooter() {
+        const foot = $("#foot");
+        foot.textContent = "";
+        const parts = [C.study.researchers];
+        if (C.study.contactEmail) parts.push(C.study.contactEmail);
+        parts.push("ID " + S.rid);
+        foot.textContent = parts.filter(Boolean).join(" · ");
+      }
+      updateFooter();
+
+      // Preview banner & Reset dialog
+      const previewBanner = $("#preview-banner");
+      if (isPreview && !C.responsesClosed) {
+        previewBanner.hidden = false;
+      }
+
+      function showModalDialog({ title, body, buttons }) {
+        return new Promise((resolve) => {
+          const dlg = $("#app-dialog");
+          $("#dialog-title").textContent = title;
+          $("#dialog-body").textContent = body;
+          const actions = $("#dialog-actions");
+          actions.innerHTML = "";
+
+          (buttons || [{ label: "Close", value: "close" }]).forEach((btn) => {
+            const b = document.createElement("button");
+            b.type = "submit";
+            b.value = btn.value;
+            b.className = "btn" + (btn.ghost ? " ghost" : "");
+            b.textContent = btn.label;
+            actions.appendChild(b);
+          });
+
+          const onClose = () => {
+            dlg.removeEventListener("close", onClose);
+            resolve(dlg.returnValue);
+          };
+          dlg.addEventListener("close", onClose);
+          dlg.showModal();
+        });
+      }
+
+      $("#reset-preview-btn").addEventListener("click", async () => {
+        const choice = await showModalDialog({
+          title: "Reset preview session?",
+          body: "This clears your saved local answers and generates a fresh Participant ID so you can test the questionnaire from the start.",
+          buttons: [
+            { label: "Cancel", value: "cancel", ghost: true },
+            { label: "Reset Session", value: "confirm" }
+          ]
+        });
+        if (choice === "confirm") {
+          localStorage.removeItem(STORAGE_KEY);
+          S = defaultState();
+          updateFooter();
+          navigate(() => render(false), "backward");
+        }
+      });
+
+      // Responses Closed mode
+      if (C.responsesClosed) {
+        $("#progress-wrap").hidden = true;
+        document.title = `${C.closedMessage.kicker} | ${C.study.pageTitle}`;
+        main.innerHTML = `
+          <section class="slide" style="text-align:center">
+            <img class="hero" src="media/emblem.svg" alt="" width="240" height="180" fetchpriority="high">
+            <div class="kicker">${esc(C.closedMessage.kicker)}</div>
+            <h1 id="slide-heading" tabindex="-1">${esc(C.closedMessage.title)}</h1>
+            <p>${esc(C.closedMessage.body)}</p>
+            <div class="rule"></div>
+            <p class="muted">${esc(C.study.researchers)}</p>
+          </section>
+        `;
+        return;
+      }
+
+      // Network helper (avoids CORS preflight on Google Apps Script)
+      let busy = false;
+      window.addEventListener("beforeunload", (e) => {
+        if (busy) {
+          e.preventDefault();
+          e.returnValue = "";
+        }
+      });
+
+      function postToAppsScript(payload) {
+        if (isPreview) {
+          return Promise.resolve("preview");
+        }
+        const body = JSON.stringify(payload);
+        return fetch(C.appsScriptUrl, {
+          method: "POST",
+          body,
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          redirect: "follow"
+        })
+          .then((r) => r.json())
+          .then((j) => {
+            if (!j.ok) throw new Error(j.error || "Server error");
+            return "ok";
+          })
+          .catch((err) => {
+            if (err && err.name === "TypeError") {
+              return fetch(C.appsScriptUrl, {
+                method: "POST",
+                mode: "no-cors",
+                body,
+                headers: { "Content-Type": "text/plain;charset=utf-8" }
+              }).then(() => "unconfirmed");
+            }
+            throw err;
+          });
+      }
+
+      // Directional View Transition helper
+      function navigate(updateDOM, direction) {
+        if (!document.startViewTransition) {
+          updateDOM();
+          return;
+        }
+        document.startViewTransition({
+          update: updateDOM,
+          types: [direction]
+        });
+      }
+
+      function go(targetIndex) {
+        const direction = targetIndex >= S.slide ? "forward" : "backward";
+        S.slide = targetIndex;
+        saveState();
+        navigate(() => {
+          render(true);
+          window.scrollTo(0, 0);
+        }, direction);
+      }
+
+      function renderDots() {
+        const dotsEl = $("#dots");
+        dotsEl.innerHTML = "";
+        SLIDES.forEach((_, idx) => {
+          const d = document.createElement("div");
+          d.className =
+            "dot" + (idx < S.slide ? " done" : idx === S.slide ? " now" : "");
+          dotsEl.appendChild(d);
+        });
+      }
+
+      // Accessible validation sync (:user-invalid + WeakMap fallback)
+      const linkError = (el, shown) => {
+        const errorId = el.dataset.error;
+        if (!errorId) return;
+        const ids = (el.getAttribute("aria-describedby") || "")
+          .split(/\s+/)
+          .filter((id) => id && id !== errorId);
+        if (shown) ids.push(errorId);
+        if (ids.length) el.setAttribute("aria-describedby", ids.join(" "));
+        else el.removeAttribute("aria-describedby");
+      };
+
+      const spokenText = (node) => {
+        const copy = node.cloneNode(true);
+        copy.querySelectorAll('[aria-hidden="true"]').forEach((n) => n.remove());
+        copy.querySelectorAll('[role="img"][aria-label]').forEach((n) =>
+          n.replaceWith(`${n.getAttribute("aria-label")}: `)
+        );
+        return copy.textContent.replace(/\s+/g, " ").trim();
+      };
+
+      const announceError = (el) => {
+        const error = document.getElementById(el.dataset.error);
+        if (!error) return;
+        const label = el.labels?.[0] ? `${spokenText(el.labels[0])}: ` : "";
+        clearTimeout(announceTimer);
+        announcer.textContent = "";
+        announcedField = el;
+        announceTimer = setTimeout(() => {
+          announcer.textContent = label + spokenText(error);
+        }, 500);
+      };
+
+      const supportsUserInvalid = CSS.supports("selector(:user-invalid)");
+      const dirtyState = new WeakMap();
+      const flagged = new WeakSet();
+      const announced = new WeakSet();
+
+      function syncFieldValidity(el, announce = false) {
+        if (!el.matches?.("input, select, textarea")) return;
+        const invalid = supportsUserInvalid
+          ? el.matches(":user-invalid")
+          : el.classList.contains("user-invalid-fallback");
+        if (invalid) {
+          if (announce && !announced.has(el)) {
+            announceError(el);
+            announced.add(el);
+          }
+          el.setAttribute("aria-invalid", "true");
+          linkError(el, true);
+          flagged.add(el);
+        } else if (flagged.has(el) || el.getAttribute("aria-invalid") !== "true") {
+          el.setAttribute("aria-invalid", "false");
+          linkError(el, false);
+          flagged.delete(el);
+          announced.delete(el);
+          if (announcedField === el) {
+            clearTimeout(announceTimer);
+            announcer.textContent = "";
+          }
+        }
+      }
+
+      function attachFormValidation(form) {
+        form.querySelectorAll("input, select, textarea").forEach((el) => {
+          el.setAttribute("aria-invalid", "false");
+        });
+
+        const updateFallback = (input, announce) => {
+          const isValid = input.validity.valid;
+          input.classList.toggle("user-invalid-fallback", !isValid);
+          input.classList.toggle("user-valid-fallback", isValid);
+          syncFieldValidity(input, announce);
+        };
+
+        form.addEventListener(
+          "blur",
+          (e) => {
+            const input = e.target;
+            if (!input.checkValidity) return;
+            if (!supportsUserInvalid) {
+              const st = dirtyState.get(input) || {
+                hasInteracted: false,
+                hasBlurred: false
+              };
+              st.hasBlurred = true;
+              dirtyState.set(input, st);
+              if (st.hasInteracted) updateFallback(input, true);
+            } else {
+              syncFieldValidity(input, true);
+            }
+          },
+          true
+        );
+
+        form.addEventListener("input", (e) => {
+          const input = e.target;
+          if (!input.checkValidity) return;
+          if (!supportsUserInvalid) {
+            const st = dirtyState.get(input) || {
+              hasInteracted: false,
+              hasBlurred: false
+            };
+            st.hasInteracted = true;
+            dirtyState.set(input, st);
+            if (st.hasBlurred) updateFallback(input, false);
+          } else if (input.hasAttribute("aria-invalid")) {
+            syncFieldValidity(input, false);
+          }
+        });
+
+        form.addEventListener(
+          "change",
+          (e) => {
+            const input = e.target;
+            if (!input.checkValidity) return;
+            if (!supportsUserInvalid) {
+              const st = dirtyState.get(input) || {
+                hasInteracted: true,
+                hasBlurred: true
+              };
+              st.hasInteracted = true;
+              st.hasBlurred = true;
+              dirtyState.set(input, st);
+              updateFallback(input, true);
+            } else {
+              syncFieldValidity(input, true);
+            }
+          },
+          true
+        );
+
+        form.addEventListener(
+          "invalid",
+          (e) => {
+            const input = e.target;
+            announced.add(input);
+            if (!supportsUserInvalid) {
+              dirtyState.set(input, { hasInteracted: true, hasBlurred: true });
+              updateFallback(input, false);
+            } else {
+              syncFieldValidity(input, false);
+            }
+          },
+          true
+        );
+      }
+
+      // Compute scored items & subscale summaries for Google Sheets
+      function buildSubmissionPayload() {
+        const items = [];
+        const flatAnswers = {};
+        const subscaleBuckets = {};
+        let globalIndex = 0;
+
+        C.sections.forEach((sec) => {
+          sec.questions.forEach((q) => {
+            globalIndex += 1;
+            const raw = S.answers[q.id];
+            const options =
+              q.type === "likert" ? C.scales[q.scale] || [] : q.options || [];
+
+            if (q.type === "multi") {
+              const arr = Array.isArray(raw) ? raw : [];
+              const joined = arr.join("; ");
+              const labels = arr
+                .map((v) => {
+                  const found = options.find((o) => String(o.value) === String(v));
+                  return found ? found.label : v;
+                })
+                .join("; ");
+              flatAnswers[q.id] = joined;
+              items.push({
+                sectionId: sec.id,
+                qindex: globalIndex,
+                qid: q.id,
+                prompt: q.prompt,
+                rawValue: joined,
+                scoredValue: joined,
+                label: labels,
+                subscale: q.subscale || ""
+              });
+              return;
+            }
+
+            const numVal = Number(raw);
+            const isNumeric = raw !== undefined && raw !== "" && !Number.isNaN(numVal);
+            let scored = isNumeric ? numVal : raw ?? "";
+
+            if (q.type === "likert" && q.reverse && isNumeric && options.length > 0) {
+              const nums = options.map((o) => Number(o.value));
+              const min = Math.min(...nums);
+              const max = Math.max(...nums);
+              scored = min + max - numVal;
+            }
+
+            const matchedOpt = options.find(
+              (o) => String(o.value) === String(raw)
+            );
+            const label = matchedOpt ? matchedOpt.label : "";
+
+            flatAnswers[q.id] = scored;
+
+            if (q.subscale && typeof scored === "number") {
+              if (!subscaleBuckets[q.subscale]) {
+                subscaleBuckets[q.subscale] = [];
+              }
+              subscaleBuckets[q.subscale].push(scored);
+            }
+
+            items.push({
+              sectionId: sec.id,
+              qindex: globalIndex,
+              qid: q.id,
+              prompt: q.prompt,
+              rawValue: raw ?? "",
+              scoredValue: scored,
+              label,
+              subscale: q.subscale || ""
+            });
+          });
+        });
+
+        const subscales = {};
+        Object.entries(subscaleBuckets).forEach(([name, vals]) => {
+          const sum = vals.reduce((a, b) => a + b, 0);
+          const mean = Math.round((sum / vals.length) * 100) / 100;
+          subscales[name] = { sum, mean, count: vals.length };
+        });
+
+        const durationSec = S.startedAt
+          ? Math.max(1, Math.round((Date.now() - S.startedAt) / 1000))
+          : 0;
+
+        return {
+          kind: "submit",
+          rid: S.rid,
+          externalPid: S.externalPid || "",
+          durationSec,
+          demographics: S.demographics,
+          demographicColumns: C.demographics.fields.map((f) => f.name),
+          flatAnswers,
+          questionOrder: items.map((it) => it.qid),
+          subscales,
+          items
+        };
+      }
+
+      // Slide Renderers
+      function render(moveFocus = false) {
+        renderDots();
+        const current = SLIDES[S.slide];
+        document.title = `${current.title} | ${C.study.pageTitle}`;
+
+        if (current.type === "intro") renderIntro();
+        else if (current.type === "consent") renderConsent();
+        else if (current.type === "section") renderSection(current.index);
+        else if (current.type === "demographics") renderDemographics();
+        else if (current.type === "thanks") renderThanks();
+
+        if (moveFocus) {
+          const heading = $("#slide-heading", main);
+          if (heading) heading.focus();
+        }
+      }
+
+      function renderIntro() {
+        const I = C.intro;
+        main.innerHTML = `
+          <section class="slide">
+            <img class="hero" src="media/emblem.svg" alt="" width="240" height="180" fetchpriority="high">
+            <div class="kicker">${esc(I.kicker)}</div>
+            <h1 id="slide-heading" tabindex="-1">${esc(I.title)}</h1>
+            <p>${esc(I.body)}</p>
+            <div class="spacer"></div>
+            <div class="nav-row end">
+              <button type="button" class="btn" id="start-btn">${esc(I.startBtn)}</button>
+            </div>
+          </section>
+        `;
+        $("#start-btn", main).addEventListener("click", () => go(1));
+      }
+
+      function renderConsent() {
+        const K = C.consent;
+        const listHtml = K.points
+          .map((pt) => `<li>${esc(pt)}</li>`)
+          .join("");
+        main.innerHTML = `
+          <section class="slide">
+            <div class="kicker">${esc(K.kicker)}</div>
+            <h1 id="slide-heading" tabindex="-1">${esc(K.title)}</h1>
+            <ul class="consent-list">${listHtml}</ul>
+            <label class="consent-check" for="consent-cb">
+              <input type="checkbox" id="consent-cb" ${S.consented ? "checked" : ""}>
+              <span>${esc(K.checkboxLabel)}</span>
+            </label>
+            <div class="spacer"></div>
+            <div class="nav-row">
+              <button type="button" class="btn ghost" id="back-btn">Back</button>
+              <button type="button" class="btn" id="continue-btn" ${S.consented ? "" : "disabled"}>${esc(K.continueBtn)}</button>
+            </div>
+          </section>
+        `;
+
+        const cb = $("#consent-cb", main);
+        const cont = $("#continue-btn", main);
+
+        cb.addEventListener("change", () => {
+          S.consented = cb.checked;
+          cont.disabled = !cb.checked;
+          saveState();
+        });
+
+        $("#back-btn", main).addEventListener("click", () => go(0));
+
+        cont.addEventListener("click", () => {
+          if (!cb.checked) return;
+          if (!S.startedAt) {
+            S.startedAt = Date.now();
+            saveState();
+          }
+          if (!S.startSent) {
+            postToAppsScript({
+              kind: "start",
+              rid: S.rid,
+              externalPid: S.externalPid || "",
+              ua: navigator.userAgent
+            })
+              .then(() => {
+                S.startSent = true;
+                saveState();
+              })
+              .catch(() => {});
+          }
+          go(2);
+        });
+      }
+
+      function renderSection(secIdx) {
+        const sec = C.sections[secIdx];
+        let qOffset = 0;
+        for (let i = 0; i < secIdx; i++) {
+          qOffset += C.sections[i].questions.length;
+        }
+
+        const questionsHtml = sec.questions
+          .map((q, idx) => {
+            const qNum = qOffset + idx + 1;
+            const options =
+              q.type === "likert" ? C.scales[q.scale] || [] : q.options || [];
+            const savedVal = S.answers[q.id];
+            const isAnswered =
+              q.type === "multi"
+                ? Array.isArray(savedVal) && savedVal.length > 0
+                : savedVal !== undefined && savedVal !== "";
+
+            const wrapperClass =
+              q.type === "likert" ? "options-likert" : "options-stack";
+            const inputType = q.type === "multi" ? "checkbox" : "radio";
+            const errId = `err-${q.id}`;
+
+            const optsHtml = options
+              .map((opt, optIdx) => {
+                const inputId = `q-${q.id}-${optIdx}`;
+                const checked =
+                  q.type === "multi"
+                    ? Array.isArray(savedVal) &&
+                      savedVal.map(String).includes(String(opt.value))
+                    : String(savedVal) === String(opt.value);
+                return `
+                  <label class="opt-pill" for="${esc(inputId)}">
+                    <input
+                      type="${inputType}"
+                      id="${esc(inputId)}"
+                      name="${esc(q.id)}"
+                      value="${esc(opt.value)}"
+                      ${checked ? "checked" : ""}
+                    >
+                    <span>${esc(opt.label)}</span>
+                  </label>
+                `;
+              })
+              .join("");
+
+            return `
+              <fieldset class="q-card ${isAnswered ? "answered" : ""}" data-qid="${esc(q.id)}" data-qtype="${esc(q.type)}" data-required="${q.required === false ? "false" : "true"}">
+                <legend><span class="q-num">${qNum}.</span>${esc(q.prompt)}</legend>
+                <div class="${wrapperClass}">
+                  ${optsHtml}
+                </div>
+                <div class="q-error" id="${esc(errId)}">
+                  <span role="img" aria-label="Error">❌</span> Please select an answer to continue.
+                </div>
+              </fieldset>
+            `;
+          })
+          .join("");
+
+        main.innerHTML = `
+          <section class="slide">
+            <div class="kicker">${esc(sec.kicker)}</div>
+            <h1 id="slide-heading" tabindex="-1">${esc(sec.title)}</h1>
+            ${sec.instructions ? `<p class="muted">${esc(sec.instructions)}</p>` : ""}
+            <div class="questions-stack" id="q-stack">
+              ${questionsHtml}
+            </div>
+            <div class="spacer"></div>
+            <div class="nav-row">
+              <button type="button" class="btn ghost" id="back-btn">Back</button>
+              <button type="button" class="btn" id="next-btn">Next</button>
+            </div>
+          </section>
+        `;
+
+        const stack = $("#q-stack", main);
+        stack.addEventListener("change", (e) => {
+          const input = e.target;
+          if (!input.matches("input")) return;
+          const card = input.closest("fieldset.q-card");
+          if (!card) return;
+          const qid = card.dataset.qid;
+          const qtype = card.dataset.qtype;
+
+          if (qtype === "multi") {
+            const checkedVals = [
+              ...card.querySelectorAll("input[type='checkbox']:checked")
+            ].map((el) => el.value);
+            S.answers[qid] = checkedVals;
+            card.classList.toggle("answered", checkedVals.length > 0);
+            if (checkedVals.length > 0) card.classList.remove("unanswered-err");
+          } else {
+            S.answers[qid] = input.value;
+            card.classList.add("answered");
+            card.classList.remove("unanswered-err");
+          }
+          saveState();
+        });
+
+        $("#back-btn", main).addEventListener("click", () => go(S.slide - 1));
+
+        $("#next-btn", main).addEventListener("click", () => {
+          const cards = [...stack.querySelectorAll("fieldset.q-card")];
+          let firstMissing = null;
+
+          cards.forEach((card) => {
+            if (card.dataset.required === "false") return;
+            const qid = card.dataset.qid;
+            const val = S.answers[qid];
+            const missing =
+              card.dataset.qtype === "multi"
+                ? !Array.isArray(val) || val.length === 0
+                : val === undefined || val === "";
+            card.classList.toggle("unanswered-err", missing);
+            if (missing && !firstMissing) firstMissing = card;
+          });
+
+          if (firstMissing) {
+            const firstInput = firstMissing.querySelector("input");
+            if (firstInput) firstInput.focus();
+            announcer.textContent = "Please answer all highlighted questions before continuing.";
+            return;
+          }
+
+          go(S.slide + 1);
+        });
+      }
+
+      function renderDemographics() {
+        const D = C.demographics;
+        const fieldsHtml = D.fields
+          .map((f) => {
+            const fieldId = `demo-${f.name}`;
+            const errId = `err-demo-${f.name}`;
+            const savedVal = S.demographics[f.name] ?? "";
+            const optTag = f.required
+              ? ""
+              : ' <span class="opt-tag">(optional)</span>';
+
+            let controlHtml = "";
+            if (f.type === "select") {
+              const opts = (f.options || [])
+                .map(
+                  ([val, label]) =>
+                    `<option value="${esc(val)}" ${String(savedVal) === String(val) ? "selected" : ""}>${esc(label)}</option>`
+                )
+                .join("");
+              controlHtml = `
+                <select id="${esc(fieldId)}" name="${esc(f.name)}" data-error="${esc(errId)}" ${f.required ? "required" : ""}>
+                  <option value="">Choose an option…</option>
+                  ${opts}
+                </select>
+              `;
+            } else if (f.type === "number") {
+              controlHtml = `
+                <input
+                  type="number"
+                  inputmode="numeric"
+                  id="${esc(fieldId)}"
+                  name="${esc(f.name)}"
+                  value="${esc(savedVal)}"
+                  ${f.min !== undefined ? `min="${esc(f.min)}"` : ""}
+                  ${f.max !== undefined ? `max="${esc(f.max)}"` : ""}
+                  data-error="${esc(errId)}"
+                  ${f.required ? "required" : ""}
+                >
+              `;
+            } else {
+              controlHtml = `
+                <input
+                  type="text"
+                  id="${esc(fieldId)}"
+                  name="${esc(f.name)}"
+                  value="${esc(savedVal)}"
+                  data-error="${esc(errId)}"
+                  ${f.required ? "required" : ""}
+                >
+              `;
+            }
+
+            const errText =
+              f.type === "number" && f.min !== undefined
+                ? `Please enter a valid number (${f.min}–${f.max || 120}).`
+                : "Please complete this field.";
+
+            return `
+              <div class="field">
+                <label for="${esc(fieldId)}">${esc(f.label)}${optTag}</label>
+                ${controlHtml}
+                <div class="error-msg" id="${esc(errId)}">
+                  <span role="img" aria-label="Error">❌</span> ${esc(errText)}
+                </div>
+              </div>
+            `;
+          })
+          .join("");
+
+        main.innerHTML = `
+          <section class="slide">
+            <div class="kicker">${esc(D.kicker)}</div>
+            <h1 id="slide-heading" tabindex="-1">${esc(D.title)}</h1>
+            <p class="muted">${esc(D.note)}</p>
+            <form class="details-form" id="demo-form" novalidate>
+              ${fieldsHtml}
+              <div class="status" id="submit-status"></div>
+              <div class="nav-row">
+                <button type="button" class="btn ghost" id="back-btn">Back</button>
+                <div style="display:flex;gap:10px">
+                  <button type="button" class="btn ghost" id="retry-btn" hidden>Retry Sending</button>
+                  <button type="submit" class="btn" id="submit-btn">${esc(D.submitBtn)}</button>
+                </div>
+              </div>
+            </form>
+          </section>
+        `;
+
+        const form = $("#demo-form", main);
+        const submitBtn = $("#submit-btn", main);
+        const retryBtn = $("#retry-btn", main);
+        const backBtn = $("#back-btn", main);
+        const statusEl = $("#submit-status", main);
+
+        attachFormValidation(form);
+
+        form.addEventListener("input", () => {
+          S.demographics = Object.fromEntries(new FormData(form).entries());
+          saveState();
+        });
+        form.addEventListener("change", () => {
+          S.demographics = Object.fromEntries(new FormData(form).entries());
+          saveState();
+        });
+
+        backBtn.addEventListener("click", () => {
+          if (!busy) go(S.slide - 1);
+        });
+
+        async function submitAll() {
+          if (!form.checkValidity()) {
+            const firstInvalid = form.querySelector(":invalid");
+            form.querySelectorAll("input, select, textarea").forEach((el) => {
+              el.dispatchEvent(new Event("invalid", { cancelable: true }));
+            });
+            if (firstInvalid) firstInvalid.focus();
+            return;
+          }
+
+          S.demographics = Object.fromEntries(new FormData(form).entries());
+          saveState();
+
+          busy = true;
+          submitBtn.disabled = true;
+          backBtn.disabled = true;
+          retryBtn.hidden = true;
+          statusEl.className = "status";
+          statusEl.textContent = "Saving your responses…";
+
+          try {
+            const payload = buildSubmissionPayload();
+            await postToAppsScript(payload);
+            busy = false;
+            S.finished = true;
+            saveState();
+            go(SLIDES.length - 1);
+          } catch (err) {
+            busy = true;
+            submitBtn.disabled = false;
+            backBtn.disabled = false;
+            retryBtn.hidden = false;
+            statusEl.className = "status err";
+            statusEl.textContent =
+              "Could not reach the server. Check your internet connection and click Retry Sending — your answers are safely saved on this page.";
+          }
+        }
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          submitAll();
+        });
+
+        retryBtn.addEventListener("click", submitAll);
+      }
+
+      function renderThanks() {
+        const H = C.thanks;
+        main.innerHTML = `
+          <section class="slide" style="text-align:center">
+            <img class="hero" src="media/emblem.svg" alt="" width="240" height="180">
+            <div class="kicker">${esc(H.kicker)}</div>
+            <h1 id="slide-heading" tabindex="-1">${esc(H.title)}</h1>
+            <p>${esc(H.body)}</p>
+            ${
+              H.debriefBody
+                ? `<div class="debrief-box">
+                     <h2>${esc(H.debriefTitle || "Debriefing")}</h2>
+                     <p style="margin-bottom:0">${esc(H.debriefBody)}</p>
+                   </div>`
+                : ""
+            }
+            <p class="muted" style="margin-bottom:4px">${esc(H.idLabel)}</p>
+            <div>
+              <span class="pid-chip">
+                <span id="pid-text">${esc(S.rid)}</span>
+                <button type="button" class="copy-btn" id="copy-pid-btn">Copy ID</button>
+              </span>
+            </div>
+          </section>
+        `;
+
+        const copyBtn = $("#copy-pid-btn", main);
+        copyBtn.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(S.rid);
+            copyBtn.textContent = "Copied!";
+            setTimeout(() => {
+              copyBtn.textContent = "Copy ID";
+            }, 2000);
+          } catch (e) {
+            copyBtn.textContent = S.rid;
+          }
+        });
+      }
+
+      render(false);
+    })();
+  </script>
+</body>
+</html>
